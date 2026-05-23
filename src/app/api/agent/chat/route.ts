@@ -46,7 +46,7 @@ async function retrieveChunks(
         query_embedding: JSON.stringify(embedding),
         match_threshold: 0.5,
         match_count: 5,
-        filter_source: source === 'all' ? null : source,
+        filter_source: source === 'all' ? undefined : source,
     })
 
     if (error || !chunks || chunks.length === 0) return null
