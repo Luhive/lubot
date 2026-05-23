@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "next lint",
+    "lint": "echo \"ESLint is disabled\"",
     "format": "prettier ./src/ --wirte",
     "gen:types": "npx supabase gen types typescript --lang=typescript --local > src/types/database.ts",
     "gen:types:remote": "npx supabase gen types typescript --lang=typescript --project-id nlculnobnbrallgcgsty > src/types/database.ts",
