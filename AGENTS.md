@@ -23,3 +23,7 @@ New tables should grant full access to `anon` and `authenticated` with no RLS wh
 ## Design tokens / fonts
 
 Not yet applied. When provided, map CSS custom properties in `src/app/globals.css` and configure the font via `next/font` in `src/app/layout.tsx`.
+
+## Project knowledge base
+
+For hackathon build order, wiki access rules (token-efficient reads), and doc self-update expectations, see [docs/AGENTS.md](docs/AGENTS.md).

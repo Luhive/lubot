@@ -5,6 +5,7 @@ const envRef = {
         SUPABASE_URL: "",
         SUPABASE_ANON_KEY: "",
         AUTH_ENABLED: "false",
+        APP_URL: "",
     },
 };
 
@@ -13,6 +14,7 @@ export const reloadEnv = () => {
         SUPABASE_URL: String(process.env.NEXT_PUBLIC_SUPABASE_URL),
         SUPABASE_ANON_KEY: String(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY),
         AUTH_ENABLED: process.env.AUTH_ENABLED ?? "false",
+        APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? "",
     };
 };
 
@@ -25,4 +27,5 @@ export const env = () => envRef.current;
 export const serverEnv = () => ({
     SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
     OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
+    TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN ?? "",
 });

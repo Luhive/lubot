@@ -16,6 +16,10 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'Lubot',
   description: '',
+  icons: {
+    icon: '/images/luhive-logo.svg',
+    apple: '/images/luhive-logo.svg',
+  },
 };
 
 export default async function RootLayout({
