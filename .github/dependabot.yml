@@ -1,3 +1,4 @@
+# Temporarily paused — set open-pull-requests-limit back to 10 on each entry to resume.
 version: 2
 updates:
   # Enable version updates for npm
@@ -12,7 +13,7 @@ updates:
       - 'dependencies'
       - 'automerge'
     # Limit the number of open pull requests for version updates
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 0
     # Allow up to 5 pull requests for version updates
     pull-request-branch-name:
       separator: '-'
@@ -29,4 +30,4 @@ updates:
     labels:
       - 'dependencies'
       - 'automerge'
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 0
