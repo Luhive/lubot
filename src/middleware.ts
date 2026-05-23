@@ -1,5 +1,6 @@
-import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import type { CookieOptions } from "@supabase/ssr";
+import { type NextRequest, NextResponse } from "next/server";
 import { env } from "@/lib/env";
 
 export async function middleware(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function middleware(request: NextRequest) {
                 getAll() {
                     return request.cookies.getAll();
                 },
-                setAll(cookiesToSet) {
+                setAll(cookiesToSet: Array<{ name: string; value: string; options: CookieOptions }>) {
                     cookiesToSet.forEach(({ name, value }) =>
                         request.cookies.set(name, value)
                     );
@@ -38,20 +39,20 @@ export async function middleware(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser();
 
-    if (user) {
-        if (request.nextUrl.pathname.startsWith("/auth")) {
-            // user is logged in, potentially respond by redirecting the user to the home page
-            const url = request.nextUrl.clone();
-            url.pathname = "/";
-            return NextResponse.redirect(url);
-        }
-    } else {
-        if (!request.nextUrl.pathname.startsWith("/auth")) {
-            // no user, potentially respond by redirecting the user to the login page
-            const url = request.nextUrl.clone();
-            url.pathname = "/auth/login";
-            url.searchParams.set("next", request.nextUrl.pathname);
-            return NextResponse.redirect(url);
+    if (env().AUTH_ENABLED === "true") {
+        if (user) {
+            if (request.nextUrl.pathname.startsWith("/auth")) {
+                const url = request.nextUrl.clone();
+                url.pathname = "/";
+                return NextResponse.redirect(url);
+            }
+        } else {
+            if (!request.nextUrl.pathname.startsWith("/auth")) {
+                const url = request.nextUrl.clone();
+                url.pathname = "/auth/login";
+                url.searchParams.set("next", request.nextUrl.pathname);
+                return NextResponse.redirect(url);
+            }
         }
     }
 

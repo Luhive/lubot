@@ -1,21 +1,17 @@
 {
   "actions": {
     "login": "Connexion",
-    "logout": "Déconnexion",
-    "openSettings": "Ouvrir les paramètres",
-    "add": "Ajouter"
+    "openSettings": "Ouvrir les paramètres"
   },
   "home": {
-    "welcome": "Bienvenue, {email}",
-    "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos atque nisi necessitatibus neque voluptates libero aperiam nam repellat quam, ab perferendis cum animi repellendus ratione eius dolores et iure rerum!"
+    "description": "Votre application est prête. Commencez à construire."
   },
   "common": {
     "logo": "Logo"
   },
   "navigation": {
     "home": "Accueil",
-    "mainMenu": "Menu principal",
-    "todos": "Tâches"
+    "mainMenu": "Menu principal"
   },
   "settings": {
     "title": "Paramètres",
@@ -56,11 +52,5 @@
       "successMessage": "Si un compte existe avec cet e-mail, nous avons envoyé les instructions de réinitialisation du mot de passe à votre adresse e-mail.",
       "sendError": "Échec de l'envoi de l'e-mail de réinitialisation"
     }
-  },
-  "todos": {
-    "title": "Tâches",
-    "newTodoPlaceholder": "Ajouter une nouvelle tâche...",
-    "noTodos": "Aucune tâche pour le moment",
-    "showAll": "Afficher tout"
   }
 }

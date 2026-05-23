@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -7,20 +7,15 @@ import { ReactQueryProvider } from '@/components/react-query-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 
-const geistSans = localFont({
-  src: '../fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: '../fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
 });
 
 export const metadata: Metadata = {
-  title: 'NSS Boilerplate',
-  description: 'A simple boilerplate for Next.js, Supabase and Shadcn/UI',
+  title: 'Lubot',
+  description: '',
 };
 
 export default async function RootLayout({
@@ -29,17 +24,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable} antialiased`}>
         <ReactQueryProvider>
           <NextIntlClientProvider messages={messages}>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               {children}
             </ThemeProvider>
           </NextIntlClientProvider>

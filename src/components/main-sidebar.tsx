@@ -5,57 +5,24 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarHeader,
   SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Home, User2, ChevronUp, ListCheck, Monitor, LogOut, LucideProps } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Home, Monitor } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import supabaseClient from '@/lib/supabase-client';
-import { useCurrentUser } from '@/hooks/use-current-user';
 import { usePathname } from 'next/navigation';
-import { ForwardRefExoticComponent, RefAttributes, useState } from 'react';
+import { useState } from 'react';
 import { SettingsModal } from '@/components/settings-modal';
 import { useTranslations } from 'next-intl';
 
-// Menu items
-const items: Array<{
-  titleKey: string;
-  url: string;
-  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
-}> = [
-  {
-    titleKey: 'navigation.todos',
-    url: '/todos',
-    icon: ListCheck,
-  },
-];
-
 export default function MainSidebar() {
-  const currentUser = useCurrentUser();
   const pathname = usePathname();
   const [showSettings, setShowSettings] = useState(false);
   const t = useTranslations();
-
-  const _logout = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-      alert(error.message);
-    }
-
-    window.location.reload();
-  };
 
   return (
     <Sidebar>
@@ -79,56 +46,13 @@ export default function MainSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>{t('navigation.mainMenu')}</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map(item => (
-                <SidebarMenuItem key={item.titleKey}>
-                  <SidebarMenuButton asChild className={pathname === item.url ? 'bg-accent' : ''}>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{t(item.titleKey)}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div className="flex items-center justify-between gap-2">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton data-testid="user-button">
-                    <User2 />
-                    {currentUser?.data?.email ? (
-                      <span className="h-6 inline-flex items-center text-sm truncate flex-shrink">
-                        {currentUser?.data?.email}
-                      </span>
-                    ) : (
-                      <Skeleton className="h-6 w-full" />
-                    )}
-                    <ChevronUp className="ml-auto" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
-                  <DropdownMenuItem onClick={_logout}>
-                    <LogOut className="h-[1.2rem] w-[1.2rem]" />
-                    <span data-testid="logout-button">{t('actions.logout')}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setShowSettings(true)}>
-                    <Monitor className="h-[1.2rem] w-[1.2rem]" />
-                    <span>{t('actions.openSettings')}</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
-          </SidebarMenu>
-
+        <div className="flex items-center justify-end gap-2 px-2 py-1">
+          <SidebarMenuButton onClick={() => setShowSettings(true)} className="w-auto gap-2">
+            <Monitor className="h-[1.2rem] w-[1.2rem]" />
+            <span>{t('actions.openSettings')}</span>
+          </SidebarMenuButton>
           <SettingsModal open={showSettings} onOpenChange={setShowSettings} />
         </div>
       </SidebarFooter>

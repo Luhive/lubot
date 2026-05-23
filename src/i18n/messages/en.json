@@ -1,9 +1,7 @@
 {
   "actions": {
     "login": "Login",
-    "logout": "Logout",
-    "openSettings": "Open settings",
-    "add": "Add"
+    "openSettings": "Open settings"
   },
   "auth": {
     "signInTitle": "Sign in to your account",
@@ -32,16 +30,14 @@
     }
   },
   "home": {
-    "welcome": "Welcome back, {email}",
-    "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos atque nisi necessitatibus neque voluptates libero aperiam nam repellat quam, ab perferendis cum animi repellendus ratione eius dolores et iure rerum!"
+    "description": "Your app is ready. Start building."
   },
   "common": {
     "logo": "Logo"
   },
   "navigation": {
     "home": "Home",
-    "mainMenu": "Main menu",
-    "todos": "Todos"
+    "mainMenu": "Main menu"
   },
   "settings": {
     "title": "Settings",
@@ -56,11 +52,5 @@
       "label": "Language",
       "placeholder": "Select language"
     }
-  },
-  "todos": {
-    "title": "Todos",
-    "newTodoPlaceholder": "Add a new todo...",
-    "noTodos": "No todos yet",
-    "showAll": "Show all"
   }
 }

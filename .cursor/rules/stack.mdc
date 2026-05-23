@@ -14,11 +14,10 @@ The project follows a well-organized structure:
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── auth/               # Authentication routes
+│   ├── auth/               # Authentication routes (preserved; inactive when AUTH_ENABLED=false)
 │   │   ├── confirm/        # Email confirmation
 │   │   ├── forgot-password/
 │   │   └── login/
-│   └── todos/              # Example feature
 ├── components/             # Reusable components
 │   └── ui/                 # Shadcn/UI components
 ├── fonts/                  # Font assets
@@ -28,18 +27,15 @@ src/
 │       ├── en.json         # English translations
 │       └── fr.json         # French translations
 ├── lib/                    # Utility configurations
-│   ├── api/                # API utilities
-│   │   ├── queries.ts      # React Query definitions
-│   │   └── todos.ts        # Todo API functions
+│   ├── api/                # API utilities — add <feature>.ts + queries.ts per feature
 │   ├── supabase/           # Supabase client config
-│   ├── cookies.ts          # Cookie handling
-│   ├── env.ts              # Environment variables
-│   ├── supabase-client.ts  # Supabase client setup
+│   ├── env.ts              # Environment variables (see env-variables rule)
+│   ├── supabase-client.ts  # Supabase browser client singleton
 │   └── utils.ts            # General utilities
 ├── stories/                # Storybook stories
 ├── types/                  # TypeScript type definitions
-│   └── database.ts         # Supabase schema types
-├── middleware.ts           # Next.js middleware
+│   └── database.ts         # Supabase schema types (never hand-edit — use gen:types)
+├── middleware.ts           # Next.js middleware (auth gate, cookie refresh)
 └── supabase/               # Supabase configuration
 ```
 
@@ -107,7 +103,7 @@ To maintain a clean, efficient, and maintainable codebase, follow these good pra
 - **Type Checking**: `npm run typecheck`
 - **Linting**: `npm run lint`
 - **Formatting**: `npm run format`
-- **Database Types**: `npm run gen:types`
+- **Database Types**: `npm run gen:types` (local Docker) or `npm run gen:types:remote` (remote project)
 - **Testing**: `npm run test` (Vitest) or `npm run cypress:open` (E2E)
 - **Component Development**: `npm run storybook`
 

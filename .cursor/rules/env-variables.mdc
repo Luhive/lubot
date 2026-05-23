@@ -1,0 +1,48 @@
+---
+description: Environment variable conventions — how to add, access, and categorise env vars
+alwaysApply: true
+---
+
+# Environment Variables
+
+All env vars are centralised in `src/lib/env.ts`. Never read `process.env.*` directly in app code except inside that file or server-only helpers.
+
+## Variable categories
+
+| Category | Naming | Exposure |
+|----------|--------|----------|
+| Public (Supabase URL, anon key) | `NEXT_PUBLIC_*` in `.env` | Browser + server via `env()` |
+| Auth toggle | `AUTH_ENABLED` | Browser + server via `env()` |
+| Server secrets (service role, API keys) | plain names in `.env` | Server only via `serverEnv()` |
+
+## Accessing vars in code
+
+```ts
+// ✅ Client-safe — use anywhere (components, hooks, middleware)
+import { env } from '@/lib/env';
+env().SUPABASE_URL
+env().SUPABASE_ANON_KEY
+env().AUTH_ENABLED   // "true" | "false" string
+
+// ✅ Server-only secrets — ONLY in server components, route handlers, middleware, Edge Functions
+import { serverEnv } from '@/lib/env';
+serverEnv().OPENAI_API_KEY
+serverEnv().SERVICE_ROLE_KEY
+```
+
+## Adding a new variable
+
+1. Add it to `.env` and `.env.example`.
+2. If public → add to `envRef` in `env.ts` and read from `process.env.*` inside `reloadEnv()`.
+3. If secret → add only to `serverEnv()` in `env.ts`; **never** include it in `envRef` (it would be baked into the client bundle via `next.config.ts`).
+4. Restart the dev server after changing `.env`.
+
+## Current vars
+
+```
+NEXT_PUBLIC_SUPABASE_URL          → env().SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY → env().SUPABASE_ANON_KEY
+AUTH_ENABLED                      → env().AUTH_ENABLED
+SUPABASE_SERVICE_ROLE_KEY         → serverEnv().SERVICE_ROLE_KEY
+OPENAI_API_KEY                    → serverEnv().OPENAI_API_KEY
+```
