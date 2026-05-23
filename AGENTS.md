@@ -1,0 +1,1 @@
+Follow the guidelines at .cursor/ folder.
